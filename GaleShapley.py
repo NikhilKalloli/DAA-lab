@@ -1,50 +1,43 @@
 #  Time Complexity: O(n^2) where n is the number of elements in the input array.
 
-def gale_shapley(men_preferences, women_preferences):
-    # Number of men and women
-    num_people = len(men_preferences)
-    
+def stable_match(men_prefs, women_prefs):
     # Initialize all men and women as free
-    free_men = list(range(num_people))
-    women_partner = [-1] * num_people
-    men_partner = [-1] * num_people
-    proposals = [0] * num_people
-    
-    # While there are free men who haven't proposed to every woman
+    free_men = list(men_prefs.keys())
+    engagements = {}
+    # While there are free men
     while free_men:
         man = free_men.pop(0)
-        woman = men_preferences[man][proposals[man]]
-        proposals[man] += 1
-        
-        if women_partner[woman] == -1:  # Woman is free
-            women_partner[woman] = man
-            men_partner[man] = woman
-        else:  # Woman is currently engaged
-            current_partner = women_partner[woman]
-            woman_preference = women_preferences[woman]
-            if woman_preference.index(man) < woman_preference.index(current_partner):
-                women_partner[woman] = man
-                men_partner[man] = woman
-                free_men.append(current_partner)
+        # Get the preferences of the man
+        man_pref = men_prefs[man]
+        # Propose to the first woman in the man's preference list
+        woman = man_pref.pop(0)
+        fiance = engagements.get(woman)
+        # If the woman is not engaged, engage her with the current man
+        if not fiance:
+            engagements[woman] = man
+        else:
+            # If the woman prefers the current man over her fiance
+            if women_prefs[woman].index(man) < women_prefs[woman].index(fiance):
+                engagements[woman] = man
+                free_men.append(fiance)
             else:
+                # The woman rejects the proposal
                 free_men.append(man)
-    
-    return men_partner
+    return engagements
 
-men_preferences = [
-    [0, 1, 2],  # Man 1's preferences
-    [1, 2, 0],  # Man 2's preferences
-    [1, 0, 2]   # Man 3's preferences
-]
+men_prefs = {
+    'm1': ['w1', 'w2', 'w3'],
+    'm2': ['w2', 'w3', 'w1'],
+    'm3': ['w2', 'w1', 'w3']
+}
 
-women_preferences = [
-    [2, 0, 1],  # Woman 1's preferences
-    [0, 1, 2],  # Woman 2's preferences
-    [1, 2, 0]   # Woman 3's preferences
-]
+women_prefs = {
+    'w1': ['m2', 'm3', 'm1'],
+    'w2': ['m1', 'm2', 'm3'],
+    'w3': ['m1', 'm3', 'm2']
+}
 
-matches = gale_shapley(men_preferences, women_preferences)
-
-print("Stable matchings (man -> woman):")
-for man, woman in enumerate(matches):
-    print(f"Man {man+1} is matched to Woman {woman+1}")
+stableMatches = stable_match(men_prefs, women_prefs)
+print("Stable Marriages:")
+for woman, man in stableMatches.items():
+    print(f"{man} engaged to {woman}")
