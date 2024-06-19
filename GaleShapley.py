@@ -40,4 +40,4 @@ women_prefs = {
 stableMatches = stable_match(men_prefs, women_prefs)
 print("Stable Marriages:")
 for woman, man in stableMatches.items():
-    print(f"{man} engaged to {woman}")
+    print(f"{man} is engaged to {woman}")

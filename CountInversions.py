@@ -1,48 +1,45 @@
 #  Time Complexity: O(n log n) where n is the number of elements in the input array.
 
-def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr, 0
+def mergeSort(arr):
+    if(len(arr)<=1):
+         return arr,0
     
-    # Split the array into two halves
-    mid = len(arr) // 2
-    left_half = arr[:mid]
-    right_half = arr[mid:]
-    
-    # Recursively sort each half and count inversions
-    left_half, left_inversions = merge_sort(left_half)
-    right_half, right_inversions = merge_sort(right_half)
-    
-    # Merge the sorted halves and count inversions
-    merged, merge_inversions = merge(left_half, right_half)
-    total_inversions = left_inversions + right_inversions + merge_inversions
-    
-    return merged, total_inversions
+    mid = len(arr)//2
+
+    left = arr[:mid]
+    right = arr[mid:]
+
+    left, left_count = mergeSort(left)
+    right, right_count = mergeSort(right)
+
+    merged , merge_count = merge(left, right)
+    total = merge_count + left_count + right_count
+
+    return merged ,total
 
 def merge(left, right):
-    merged = []
-    left_index = 0
-    right_index = 0
-    inversions = 0  # Initialize inversion count
+    merged =[]
+    i =0
+    j=0
+    count =0
 
-    # Compare elements from both halves and merge them in sorted order
-    while left_index < len(left) and right_index < len(right):
-        if left[left_index] <= right[right_index]:
-            merged.append(left[left_index])
-            left_index += 1
+    while i<len(left) and j<len(right):
+        if left[i]<right[j]:
+            merged.append(left[i])
+            i+=1
         else:
-            merged.append(right[right_index])
-            right_index += 1
-            inversions += len(left) - left_index  # Count inversions for elements in left half
+            merged.append(right[j])
+            j+=1
+            count += len(left) - i
     
-    # Append any remaining elements from left and right halves
-    merged.extend(left[left_index:])
-    merged.extend(right[right_index:])
-    
-    return merged, inversions
+    merged+= left[i:]
+    merged+= right[j:]
 
-# Example usage:
+    return merged, count
+        
+
+
 arr = [12, 11, 13, 5, 6, 7]
-sorted_arr, inversions = merge_sort(arr)
+sorted_arr, inversions = mergeSort(arr)
 print("Sorted array:", sorted_arr)
 print("Number of inversions:", inversions)
