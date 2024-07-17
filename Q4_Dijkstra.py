@@ -1,33 +1,37 @@
-import heapq
-
-def dijkstra(graph, src):
-    V = len(graph)
+def dijkstra(V, graph, S):
     dist = [float('inf')] * V
-    dist[src] = 0
-    pq = [(0, src)]
+    dist[S] = 0
+    visited = [False] * V
 
-    while pq:
-        d, u = heapq.heappop(pq)
-        if d > dist[u]: continue
-        for v, w in graph[u]:
-            if dist[u] + w < dist[v]:
-                dist[v] = dist[u] + w
-                heapq.heappush(pq, (dist[v], v))
-    
+    for _ in range(V):
+        min_dist = float('inf')
+        u = -1
+        for i in range(V):
+            if not visited[i] and dist[i] < min_dist:
+                min_dist = dist[i]
+                u = i
+        
+        if u == -1:
+            break
+
+        visited[u] = True
+         
+        for v, weight in graph[u]:
+            if not visited[v] and dist[u] + weight < dist[v]:
+                dist[v] = dist[u] + weight
+
     return dist
 
 
-V = int(input("Enter number of locations: "))
+V = int(input("Enter the number of vertices: "))
+edges = int(input("Enter the number of edges: "))
+
 graph = [[] for _ in range(V)]
-for _ in range(int(input("Enter the number of roads: "))):
-    u, v, w = map(int, input("Enter road (start, end, distance): ").split())
-    graph[u].append((v, w))
-    graph[v].append((u, w))
+for _ in range(edges):
+    u, v, wt = map(int, input("Enter edge (u, v, wt): ").split())
+    graph[u - 1].append((v - 1, wt))  
 
-src = int(input("Enter starting location: "))
+source = int(input("Enter the source vertex: ")) - 1 
+dist = dijkstra(V, graph, source)
 
-distances = dijkstra(graph, src)
-
-print("Location Distance from start")
-for i, d in enumerate(distances):
-    print(f"{i}\t\t{d}")
+print("Shortest distances from source vertex:", dist)
