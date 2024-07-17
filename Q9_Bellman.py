@@ -14,7 +14,8 @@ def bellman_ford(V, edges, S):
 
     return dist
 
-v, e = list(map(int, input("enter the no. of vertex and edges: ").split()))
+v = (int(input("enter the no. of vertex: ")))
+e = (int(input("enter the no. of edges: ")))
 
 edges = []
 for i in range(e):
