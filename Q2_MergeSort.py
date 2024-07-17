@@ -1,4 +1,4 @@
-#  Time Complexity: O(n log n) where n is the number of elements in the input array.
+import time
 
 def merge_sort(arr):
     if len(arr) <= 1:
@@ -31,6 +31,19 @@ def merge(left, right):
     
     return merged
 
-arr = [12, 11, 13, 5, 6, 7]
+num = int(input("Enter the number of elements in the array: "))
+arr = []
+for i in range(num):
+    element = int(input("Enter element: "))
+    arr.append(element)
+
+# arr = [12, 11, 13, 5, 6, 7]
+
+start_time = time.time()
 sorted_arr = merge_sort(arr)
+end_time = time.time()
+
+execution_time = end_time - start_time
+
 print("Sorted array:", sorted_arr)
+print(f"Execution time: {execution_time} seconds")
