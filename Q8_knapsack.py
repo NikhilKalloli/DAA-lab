@@ -18,7 +18,6 @@ def knapsack_recursive(ind, W, weights, values, dp):
 def knapsack(weights, values, max_weight):
     n = len(weights)
     dp = [[-1 for _ in range(max_weight + 1)] for _ in range(n)]
-    # print(dp)
     return knapsack_recursive(n - 1, max_weight, weights, values, dp)
 
 

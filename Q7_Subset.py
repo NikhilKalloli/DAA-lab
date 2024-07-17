@@ -1,16 +1,23 @@
-def show(index, arr, ans, n, val):
+def find(index, arr, ans, n, val, final):
     if sum(ans) == val:
-        print(ans)
-            
+        final.add(tuple(ans)) 
+    
     if index >= n:
         return
         
     ans.append(arr[index])
-    show(index + 1, arr, ans, n, val)
+    find(index + 1, arr, ans, n, val, final)
     ans.pop()
-    show(index + 1, arr, ans, n, val)
+    find(index + 1, arr, ans, n, val, final)
 
-nums = [1, 2, 3 , 7, 0]
+
+nums = [1, 2, 3, 7, 0, 0]
 ans = []
+final = set()
 n = len(nums)
-show(0, nums, ans, n, 10)
+find(0, nums, ans, n, 10, final)
+
+if final:
+    print(final)
+else:
+    print("not possible")

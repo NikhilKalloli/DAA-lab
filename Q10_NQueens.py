@@ -19,18 +19,17 @@ def isSafe(arr, row, col, n):
 
     return True
 
-def nQueens(arr, n, column, solutions):
-    if column >= n:
-        # solutions.append(["".join(['Q' if arr[i][j] else '.' for j in range(n)]) for i in range(n)])
+def nQueens(arr, n, col, solutions):
+    if col >= n:
         solutions.append([row.copy() for row in arr])
         return
 
 
     for row in range(n):
-        if isSafe(arr, row, column, n):
-            arr[row][column] = 1
-            nQueens(arr, n, column + 1, solutions)
-            arr[row][column] = 0  # Backtrack
+        if isSafe(arr, row, col, n):
+            arr[row][col] = 1
+            nQueens(arr, n, col + 1, solutions)
+            arr[row][col] = 0  
 
 n = 4
 arr = [[0] * n for _ in range(n)]

@@ -14,15 +14,21 @@ def bellman_ford(V, edges, S):
 
     return dist
 
-v = (int(input("enter the no. of vertex: ")))
-e = (int(input("enter the no. of edges: ")))
+V = (int(input("enter the no. of vertex: ")))
+E = (int(input("enter the no. of edges: ")))
 
 edges = []
-for i in range(e):
-    edge = list(map(int, input("enter edge (u, v, wt): ").split()))
-    edges.append(edge)
+for i in range(E):
+
+    u, v, wt = input("Enter edge (u, v, wt): ").split()
+    wt=int(wt)
+    u=ord(u)-ord('a')
+    v=ord(v)-ord('a')
+    edges.append((u, v, wt))
+
     
-source = 0
-dist = bellman_ford(v, edges, source)
+source = input("Enter the source vertex: ")
+source=ord(source)-ord('a')
+dist = bellman_ford(V, edges, source)
     
 print(dist)
