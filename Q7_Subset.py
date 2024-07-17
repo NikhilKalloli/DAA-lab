@@ -1,3 +1,4 @@
+#  O(2^n)
 def find(index, arr, ans, n, val, final):
     if sum(ans) == val:
         final.add(tuple(ans)) 

@@ -1,3 +1,4 @@
+# O(n^2)
 def stable_match(men_prefs, women_prefs):
 
     free_men = list(men_prefs.keys())

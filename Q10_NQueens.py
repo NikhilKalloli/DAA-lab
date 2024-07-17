@@ -1,3 +1,4 @@
+# n!
 def isSafe(arr, row, col, n):
     for i in range(col):
         if arr[row][i]:

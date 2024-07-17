@@ -1,3 +1,5 @@
+# O((V + E) log V) using heap
+# O(V^2)
 def dijkstra(V, graph, S):
     dist = [float('inf')] * V
     dist[S] = 0

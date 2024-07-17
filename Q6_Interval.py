@@ -1,3 +1,5 @@
+# O(n^2)
+
 def weighted_interval_scheduling(intervals):
     intervals.sort(key=lambda x: x[1])
 
@@ -28,7 +30,7 @@ n = int(input("Enter the number of intervals: "))
 intervals = []
 
 for i in range(n):
-    interval = list(map(int, input(f"enter (start, end, weight): ").split()))
+    interval = list(map(int, input(f"enter (start, end, value): ").split()))
     intervals.append(interval)
 
 max_value = weighted_interval_scheduling(intervals)

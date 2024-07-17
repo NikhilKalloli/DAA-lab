@@ -1,3 +1,5 @@
+# O(E log E )
+
 def find(parent, i):
     if parent[i] == i:
         return i
@@ -34,19 +36,19 @@ def kruskal(V, edges):
 
         if x != y:
             mst_cost += wt
-            mst_edges.append((u, v, wt))
+            mst_edges.append([u, v, wt])
             union(parent, rank, x, y)
 
     return mst_cost, mst_edges
 
 V = 5  
 edges = [
-    (0, 1, 10),
-    (0, 4, 100),
-    (1, 2, 50),
-    (4, 2, 10),
-    (4, 3, 60),
-    (2, 3, 20)
+    [0, 1, 10],
+    [0, 4, 100],
+    [1, 2, 50],
+    [4, 2, 10],
+    [4, 3, 60],
+    [2, 3, 20]
 ]
 
 mst_cost, mst_edges = kruskal(V, edges)

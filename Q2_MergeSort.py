@@ -1,3 +1,4 @@
+# O(n log(n))
 import time
 
 def merge_sort(arr):

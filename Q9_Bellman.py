@@ -1,3 +1,4 @@
+#  O(V * E)
 def bellman_ford(V, edges, S):
     dist = [float('inf')] * V
     dist[S] = 0

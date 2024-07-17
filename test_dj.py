@@ -1,3 +1,4 @@
+# O((V + E) log V)
 import heapq
 
 def dijkstra(graph, src):
