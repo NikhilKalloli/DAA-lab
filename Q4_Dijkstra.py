@@ -10,15 +10,15 @@ def dijkstra(V, graph, S):
             if not visited[i] and dist[i] < min_dist:
                 min_dist = dist[i]
                 u = i
-        
-        if u == -1:
+
+        if u == -1: 
             break
 
         visited[u] = True
-         
-        for v, weight in graph[u]:
-            if not visited[v] and dist[u] + weight < dist[v]:
-                dist[v] = dist[u] + weight
+        
+        for v, wt in graph[u]:
+            if not visited[v] and dist[u] + wt < dist[v]:
+                dist[v] = dist[u] + wt
 
     return dist
 
