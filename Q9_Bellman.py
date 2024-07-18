@@ -20,16 +20,15 @@ E = (int(input("enter the no. of edges: ")))
 
 edges = []
 for i in range(E):
-
     u, v, wt = input("Enter edge (u, v, wt): ").split()
-    wt=int(wt)
-    u=ord(u)-ord('a')
-    v=ord(v)-ord('a')
-    edges.append((u, v, wt))
+    wt = int(wt)
+    u = ord(u) - ord('a')
+    v = ord(v) - ord('a')
+    edges.append([u, v, wt])
 
     
 source = input("Enter the source vertex: ")
-source=ord(source)-ord('a')
+source = ord(source) - ord('a')
 dist = bellman_ford(V, edges, source)
     
 print(dist)
