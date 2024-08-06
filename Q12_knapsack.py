@@ -1,5 +1,4 @@
 # O(n * W)
-
 def knapsack_recursive(ind, W, weights, values, dp):
     if ind == 0:
         if weights[0] <= W:

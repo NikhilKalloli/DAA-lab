@@ -32,6 +32,7 @@ def nQueens(arr, n, col, solutions):
             nQueens(arr, n, col + 1, solutions)
             arr[row][col] = 0  
 
+
 n = 4
 arr = [[0] * n for _ in range(n)]
 solutions = []

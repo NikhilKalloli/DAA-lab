@@ -1,8 +1,7 @@
 #  Time Complexity: O(V+E) where V is the number of vertices and E is the number of edges in the graph.
-def bfs(graph, source):
-    visited = []
-    queue = [source]
+def bfs(graph, source, visited):
 
+    queue = [source]
     while queue:
         current_node = queue.pop(0)
         if current_node not in visited:
@@ -27,6 +26,6 @@ for i in range(nodes):
 print("Graph:", graph)
 
 source = input("Enter the start node for BFS: ")
-
+visited = set()
 print("Source node", source, "using BFS:")
-bfs(graph, source)
+bfs(graph, source, visited)
