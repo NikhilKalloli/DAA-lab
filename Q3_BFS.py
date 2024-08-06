@@ -1,29 +1,32 @@
-def BFS(graph, visited, start):
-    queue = [start]
-    visited[start] = True
+#  Time Complexity: O(V+E) where V is the number of vertices and E is the number of edges in the graph.
+def bfs(graph, source):
+    visited = []
+    queue = [source]
+
     while queue:
-        vertex = queue.pop(0)
-        print(vertex)
-        for neighbor in graph[vertex]:
-            if not visited[neighbor]:
-                visited[neighbor] = True
-                queue.append(neighbor)
+        current_node = queue.pop(0)
+        if current_node not in visited:
+            print(current_node, end=' ')
+            visited.append(current_node)
+            for neighbor in graph[current_node]:
+                if neighbor not in visited and neighbor not in queue:
+                    queue.append(neighbor)
 
-V = int(input("\nEnter number of vertices: "))
-graph = [[] for _ in range(V)]
-visited = [False] * V
+graph = {}
 
-E = int(input("\nEnter number of edges: "))
-for i in range(E):
-    print(f"Enter edge {i + 1} separated by spaces: ")
-    u, v = map(int, input().split())
-    graph[u].append(v)
-    graph[v].append(u)  # Remove this line if the graph is directed
+nodes = int(input("Enter the total number of nodes: "))
+for i in range(nodes):
+    key = input("Enter the key: ")
+    value = set(input(f"Enter the nodes connected to {key} (space-separated): ").split())
+    graph[key] = value
 
-print("\nAdjacency list: ")
-for i in range(V):
-    print(f"{i}: {graph[i]}")
+    for v in value:
+        if v not in graph:
+            graph[v] = set()
 
-start = int(input("\nEnter starting vertex: "))
-print("\nBFS: ")
-BFS(graph, visited, start)
+print("Graph:", graph)
+
+source = input("Enter the start node for BFS: ")
+
+print("Source node", source, "using BFS:")
+bfs(graph, source)

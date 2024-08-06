@@ -1,4 +1,3 @@
-# O((V + E) log V) using heap
 # O(V^2)
 def dijkstra(V, graph, S):
     dist = [float('inf')] * V
@@ -32,6 +31,7 @@ graph = [[] for _ in range(V)]
 for _ in range(edges):
     u, v, wt = map(int, input("Enter edge (u, v, wt): ").split())
     graph[u - 1].append((v - 1, wt))  
+    graph[v - 1].append((u - 1, wt))  
 
 source = int(input("Enter the source vertex: ")) - 1 
 dist = dijkstra(V, graph, source)

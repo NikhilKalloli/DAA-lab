@@ -1,25 +1,27 @@
-def DFS(graph, visited, vertex):
-    visited[vertex] = True
-    print(vertex)
-    for neighbor in graph[vertex]:
-        if not visited[neighbor]:
-            DFS(graph, visited, neighbor)
+#  Time Complexity: O(V+E) where V is the number of vertices and E is the number of edges in the graph.
+def dfs_recursive(graph, node, visited):
+    if node not in visited:
+        print(node) 
+        visited.add(node)
+        
+        for neighbor in graph[node]:
+            dfs_recursive(graph, neighbor, visited)
 
-V = int(input("\nEnter number of vertices: "))
-graph = [[] for _ in range(V)]
-visited = [False] * V
+graph = {}
 
-E = int(input("\nEnter number of edges: "))
-for i in range(E):
-    print(f"Enter edge {i + 1} separated by spaces: ")
-    u, v = map(int, input().split())
-    graph[u].append(v)
-    graph[v].append(u)  
+nodes = int(input("Enter the total number of nodes: "))
+for i in range(nodes):
+    key = input("Enter the key: ")
+    value = set(input(f"Enter the nodes connected to {key} (space-separated): ").split())
+    graph[key] = value
 
-print("\nAdjacency list: ")
-for i in range(V):
-    print(f"{i}: {graph[i]}")
+    for v in value:
+        if v not in graph:
+            graph[v] = set()
 
-start = int(input("\nEnter starting vertex: "))
-print("\nDFS: ")
-DFS(graph, visited, start)
+
+print("Graph:", graph)
+
+visited = set()  
+start = input("Enter the start node for DFS: ")
+dfs_recursive(graph, start, visited)
