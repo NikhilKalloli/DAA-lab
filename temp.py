@@ -1,37 +1,58 @@
-def schedule(intervals):
+def find(parent, i):
+    if parent[i]==i:
+        return i
+    return find(parent, parent[i])
 
-    n = len(intervals)
-    intervals.sort(key=lambda x : x[1])
-    dp = [0]*n
 
-    dp[0] = intervals[0][2]
+def union(parent, rank, x, y):
+    xroot = find(parent, x)
+    yroot = find(parent, y)
+
+    if rank[xroot] < rank[yroot]:
+        parent[xroot]  =yroot
+    elif rank[xroot] > rank[yroot]:
+        parent[yroot] = xroot
+    else:
+        parent[yroot] = xroot
+        rank[xroot]+=1
+
+
+
+def kruskal(edges, V):
+    parent =[]
+    rank = []
+
+    edges.sort(key = lambda x: x[2])
+    for node in range(V):
+        parent.append(node)
+        rank.append(0)
+
+    mst_cost =0
+    mst_edges =[]
+
+    for u,v,wt in edges:
+        x = find(parent, u)
+        y = find(parent, v)
+
+        if x!=y:
+            mst_cost+=wt
+            mst_edges.append([u,v,wt])
+            union(parent, rank, x, y)
     
-    for i in range(1, n):
-        value_include = intervals[i][2]
-        j = helper(intervals, i)
-
-        if j!=-1:
-            value_include+= dp[j]
-
-        value_exclude = dp[i-1]
-
-        dp[i] = max(value_exclude, value_include)
-    return dp[n-1]
+    return mst_cost, mst_edges
 
 
-def helper(intervals, current):
-    for j in range(current-1, -1,-1):
-        if intervals[j][1] <= intervals[current][0]:
-            return j
-    return -1
-    
 
 
-n = int(input("Number of intervals: "))
-intervals = []
 
-for i in range(n):
-    interval = map(int, input("Enter (start, end , value): ").split())
-    intervals.append([interval])
+V = int(input("Enter vertices: "))
+num = int(input("ENter number of edges: "))
+edges= []
 
-print(schedule(intervals))
+for i in range(num):
+    u, v ,wt = map(int,  input("Enter (u,v,wt): ").split())
+    edges.append([u,v,wt])
+
+cost , min_edges  = kruskal(edges, V)
+print("cost: ", cost)
+print(min_edges)
