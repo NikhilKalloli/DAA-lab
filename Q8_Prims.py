@@ -1,16 +1,17 @@
 def prim(V, adj, start):
    
-    min_edge = [float('inf')] * V
-    min_edge[start] = 0
+    dist = [float('inf')] * V
+    dist[start] = 0
     visited = [False] * V
+    
     mst_cost = 0
     
     for _ in range(V):
         min_weight = float('inf')
         u = -1
         for i in range(V):
-            if not visited[i] and min_edge[i] < min_weight:
-                min_weight = min_edge[i]
+            if not visited[i] and dist[i] < min_weight:
+                min_weight = dist[i]
                 u = i
         
         if u == -1:
@@ -20,8 +21,8 @@ def prim(V, adj, start):
         mst_cost += min_weight
         
         for v, wt in adj[u]:
-            if not visited[v] and wt < min_edge[v]:
-                min_edge[v] = wt
+            if not visited[v] and wt < dist[v]:
+                dist[v] = wt
     
     return mst_cost
 
